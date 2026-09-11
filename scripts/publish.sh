@@ -54,7 +54,37 @@ fi
 
 if command -v gh >/dev/null 2>&1; then
   echo "Creating GitHub Release ${VERSION_TAG}…"
-  gh release create "${VERSION_TAG}" \
-    --title "${VERSION_TAG}" \
-    --generate-notes
+
+  PRERELEASE_FLAG=""
+  if [[ "${PKG_VERSION}" == *-* ]]; then
+    PRERELEASE_FLAG="--prerelease"
+  fi
+
+  # Prefer the matching CHANGELOG section as release notes.
+  NOTES_FILE=""
+  if [[ -f CHANGELOG.md ]]; then
+    NOTES_FILE="$(mktemp)"
+    awk -v ver="${PKG_VERSION}" '
+      index($0, "## " ver) == 1 { capture = 1; next }
+      capture && index($0, "## ") == 1 { exit }
+      capture { print }
+    ' CHANGELOG.md >"${NOTES_FILE}"
+    if [[ ! -s "${NOTES_FILE}" ]]; then
+      rm -f "${NOTES_FILE}"
+      NOTES_FILE=""
+    fi
+  fi
+
+  if [[ -n "${NOTES_FILE}" ]]; then
+    gh release create "${VERSION_TAG}" \
+      --title "${VERSION_TAG}" \
+      ${PRERELEASE_FLAG} \
+      --notes-file "${NOTES_FILE}"
+    rm -f "${NOTES_FILE}"
+  else
+    gh release create "${VERSION_TAG}" \
+      --title "${VERSION_TAG}" \
+      ${PRERELEASE_FLAG} \
+      --generate-notes
+  fi
 fi
