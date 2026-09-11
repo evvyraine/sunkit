@@ -62,7 +62,8 @@ const badgeVariants = cva(
       {
         variant: 'solid',
         tone: 'lavender',
-        className: 'bg-pastel-lavender text-pastel-lavender-dark border-pastel-lavender-dark/[0.22]',
+        className:
+          'bg-pastel-lavender text-pastel-lavender-dark border-pastel-lavender-dark/[0.22]',
       },
       {
         variant: 'solid',

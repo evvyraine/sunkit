@@ -29,7 +29,15 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <Card variant="elevated" tone="neutral" radius={18}>
       <Card.Header>
-        <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--sk-text-desc)' }}>
+        <span
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            color: 'var(--sk-text-desc)',
+          }}
+        >
           {title}
         </span>
       </Card.Header>
@@ -55,7 +63,15 @@ function Gallery({ dark }: { dark: boolean }) {
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <div style={{ marginBottom: 26 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <h1 style={{ margin: 0, fontSize: 26, fontWeight: 750, letterSpacing: '-0.4px', color: 'var(--sk-text)' }}>
+              <h1
+                style={{
+                  margin: 0,
+                  fontSize: 26,
+                  fontWeight: 750,
+                  letterSpacing: '-0.4px',
+                  color: 'var(--sk-text)',
+                }}
+              >
                 Sunkit
               </h1>
               <Badge tone="lavender">v0.1.0-alpha</Badge>
@@ -65,19 +81,54 @@ function Gallery({ dark }: { dark: boolean }) {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, alignItems: 'start' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 16,
+              alignItems: 'start',
+            }}
+          >
             <Section title="Buttons & badges">
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', marginBottom: 14 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 10,
+                  alignItems: 'center',
+                  marginBottom: 14,
+                }}
+              >
                 <Button color="lavender">Primary</Button>
-                <Button color="sky" variant="outline">Outline</Button>
-                <Button color="rose" variant="ghost">Ghost</Button>
-                <Button color="mint" icon="right">Continue</Button>
+                <Button color="sky" variant="outline">
+                  Outline
+                </Button>
+                <Button color="rose" variant="ghost">
+                  Ghost
+                </Button>
+                <Button color="mint" icon="right">
+                  Continue
+                </Button>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', marginBottom: 16 }}>
-                <Badge tone="mint" variant="solid">Shipped</Badge>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 8,
+                  alignItems: 'center',
+                  marginBottom: 16,
+                }}
+              >
+                <Badge tone="mint" variant="solid">
+                  Shipped
+                </Badge>
                 <Badge tone="lemon">In review</Badge>
-                <Badge tone="rose" variant="outline">Blocked</Badge>
-                <Badge tone="sky" dot>Live</Badge>
+                <Badge tone="rose" variant="outline">
+                  Blocked
+                </Badge>
+                <Badge tone="sky" dot>
+                  Live
+                </Badge>
               </div>
               <div style={{ display: 'flex', gap: 18, alignItems: 'center' }}>
                 <Spinner size="sm" tone="lavender" />
@@ -111,7 +162,12 @@ function Gallery({ dark }: { dark: boolean }) {
                   tone="lavender"
                   searchable
                 />
-                <Textarea label="Description" placeholder="What is this project about?" tone="lavender" rows={2} />
+                <Textarea
+                  label="Description"
+                  placeholder="What is this project about?"
+                  tone="lavender"
+                  rows={2}
+                />
                 <Slider
                   label="Priority"
                   defaultValue={62}
@@ -127,7 +183,12 @@ function Gallery({ dark }: { dark: boolean }) {
 
             <Section title="Toggles & choices">
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <Toggle defaultChecked tone="lavender" label="Email notifications" description="Comments and task updates." />
+                <Toggle
+                  defaultChecked
+                  tone="lavender"
+                  label="Email notifications"
+                  description="Comments and task updates."
+                />
                 <Checkbox defaultChecked tone="mint" label="Share anonymous analytics" />
                 <RadioGroup defaultValue="weekly" label="Digest frequency" tone="sky">
                   <RadioGroup.Item value="daily" label="Daily" />
@@ -172,7 +233,15 @@ function Gallery({ dark }: { dark: boolean }) {
                 overflow: 'visible',
               }}
             >
-              <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--sk-text-desc)' }}>
+              <span
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  color: 'var(--sk-text-desc)',
+                }}
+              >
                 Overlays
               </span>
               <div
@@ -191,7 +260,9 @@ function Gallery({ dark }: { dark: boolean }) {
                   trigger={<Button color="lavender">Popover</Button>}
                 >
                   <div style={{ maxWidth: 210 }}>
-                    <strong style={{ fontSize: 13, color: 'var(--sk-text)' }}>Quick settings</strong>
+                    <strong style={{ fontSize: 13, color: 'var(--sk-text)' }}>
+                      Quick settings
+                    </strong>
                     <p style={{ margin: '6px 0 0', fontSize: 12, color: 'var(--sk-text-desc)' }}>
                       Anchored panels for supporting content.
                     </p>
@@ -202,7 +273,11 @@ function Gallery({ dark }: { dark: boolean }) {
                   open
                   onOpenChange={() => {}}
                   tone="lavender"
-                  trigger={<Button color="neutral" variant="outline">Actions</Button>}
+                  trigger={
+                    <Button color="neutral" variant="outline">
+                      Actions
+                    </Button>
+                  }
                 >
                   <DropdownMenu.Item onSelect={() => {}}>Rename</DropdownMenu.Item>
                   <DropdownMenu.Item onSelect={() => {}}>Duplicate</DropdownMenu.Item>

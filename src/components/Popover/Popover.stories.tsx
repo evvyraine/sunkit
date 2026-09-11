@@ -43,15 +43,11 @@ type Story = StoryObj<typeof Popover>
 export const Default: Story = {
   render: (args) => (
     <div style={{ padding: 140, display: 'flex', justifyContent: 'center' }}>
-      <Popover
-        {...args}
-        trigger={<Button color="lavender">Open popover</Button>}
-      >
+      <Popover {...args} trigger={<Button color="lavender">Open popover</Button>}>
         <div style={{ maxWidth: 240, paddingRight: 18 }}>
           <strong style={{ fontSize: 13 }}>Popover title</strong>
           <p style={{ margin: '6px 0 0', color: 'var(--sk-text-desc)' }}>
-            Popovers hold supporting content, controls or short explanations next to their
-            trigger.
+            Popovers hold supporting content, controls or short explanations next to their trigger.
           </p>
         </div>
       </Popover>
@@ -123,11 +119,7 @@ export const WithForm: Story = {
   name: 'With Form',
   render: (args) => (
     <div style={{ padding: 160, display: 'flex', justifyContent: 'center' }}>
-      <Popover
-        {...args}
-        align="start"
-        trigger={<Button color="peach">Edit profile</Button>}
-      >
+      <Popover {...args} align="start" trigger={<Button color="peach">Edit profile</Button>}>
         <form
           style={{ display: 'flex', flexDirection: 'column', gap: 10, width: 240, paddingRight: 8 }}
           onSubmit={(e) => e.preventDefault()}

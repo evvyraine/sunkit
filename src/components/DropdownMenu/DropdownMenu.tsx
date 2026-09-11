@@ -280,20 +280,17 @@ function DropdownMenuRoot({
     [],
   )
 
-  const runTypeahead = useCallback(
-    (key: string, items: HTMLElement[], currentIndex: number) => {
-      if (typeaheadTimerRef.current != null) clearTimeout(typeaheadTimerRef.current)
-      typeaheadBufferRef.current += key.toLowerCase()
-      const buffer = typeaheadBufferRef.current
-      const ordered = [...items.slice(currentIndex + 1), ...items.slice(0, currentIndex + 1)]
-      const match = ordered.find((el) => (el.textContent ?? '').toLowerCase().startsWith(buffer))
-      if (match) match.focus()
-      typeaheadTimerRef.current = setTimeout(() => {
-        typeaheadBufferRef.current = ''
-      }, 500)
-    },
-    [],
-  )
+  const runTypeahead = useCallback((key: string, items: HTMLElement[], currentIndex: number) => {
+    if (typeaheadTimerRef.current != null) clearTimeout(typeaheadTimerRef.current)
+    typeaheadBufferRef.current += key.toLowerCase()
+    const buffer = typeaheadBufferRef.current
+    const ordered = [...items.slice(currentIndex + 1), ...items.slice(0, currentIndex + 1)]
+    const match = ordered.find((el) => (el.textContent ?? '').toLowerCase().startsWith(buffer))
+    if (match) match.focus()
+    typeaheadTimerRef.current = setTimeout(() => {
+      typeaheadBufferRef.current = ''
+    }, 500)
+  }, [])
 
   const onMenuKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Escape') {
@@ -358,10 +355,7 @@ function DropdownMenuRoot({
 
   return (
     <span ref={rootRef} className={cn('relative inline-flex', className)}>
-      <span
-        onClick={() => (isOpen ? closeMenu(true) : openMenu())}
-        style={{ display: 'contents' }}
-      >
+      <span onClick={() => (isOpen ? closeMenu(true) : openMenu())} style={{ display: 'contents' }}>
         {triggerEl}
       </span>
 
@@ -381,7 +375,9 @@ function DropdownMenuRoot({
             contentClassName,
           )}
         >
-          <DropdownMenuContext.Provider value={contextValue}>{children}</DropdownMenuContext.Provider>
+          <DropdownMenuContext.Provider value={contextValue}>
+            {children}
+          </DropdownMenuContext.Provider>
         </div>
       )}
     </span>

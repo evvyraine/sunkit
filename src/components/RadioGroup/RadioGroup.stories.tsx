@@ -68,16 +68,8 @@ export const WithDescriptions: Story = {
         label="Standard"
         description="Arrives in 4–6 business days"
       />
-      <RadioGroup.Item
-        value="express"
-        label="Express"
-        description="Arrives in 1–2 business days"
-      />
-      <RadioGroup.Item
-        value="overnight"
-        label="Overnight"
-        description="Arrives tomorrow morning"
-      />
+      <RadioGroup.Item value="express" label="Express" description="Arrives in 1–2 business days" />
+      <RadioGroup.Item value="overnight" label="Overnight" description="Arrives tomorrow morning" />
     </RadioGroup>
   ),
 }
@@ -100,12 +92,7 @@ export const Disabled: Story = {
 
 export const Error: Story = {
   render: (args) => (
-    <RadioGroup
-      {...args}
-      label="Payment method"
-      required
-      error="Please choose a payment method"
-    >
+    <RadioGroup {...args} label="Payment method" required error="Please choose a payment method">
       <RadioGroup.Item value="card" label="Credit card" />
       <RadioGroup.Item value="paypal" label="PayPal" />
       <RadioGroup.Item value="bank" label="Bank transfer" />

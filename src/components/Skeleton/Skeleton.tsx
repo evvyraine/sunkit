@@ -39,8 +39,7 @@ export function Skeleton({
     ? { role: 'status' as const, 'aria-label': ariaLabel }
     : { 'aria-hidden': true as const }
 
-  const resolvedHeight =
-    height ?? (variant === 'circular' ? 40 : variant === 'text' ? '0.8em' : 16)
+  const resolvedHeight = height ?? (variant === 'circular' ? 40 : variant === 'text' ? '0.8em' : 16)
   const resolvedWidth = width ?? (variant === 'circular' ? resolvedHeight : '100%')
   const lineCount = variant === 'text' ? Math.max(1, lines) : 1
 
@@ -52,8 +51,7 @@ export function Skeleton({
   }
 
   const animatedClass = animation ? 'sk-skeleton-animated' : undefined
-  const hiddenLabel =
-    label != null ? <span className="sr-only">{label}</span> : null
+  const hiddenLabel = label != null ? <span className="sr-only">{label}</span> : null
 
   if (lineCount === 1) {
     return (

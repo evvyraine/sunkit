@@ -51,7 +51,10 @@ function useRadioGroupContext(component: string): RadioGroupContextValue {
   return ctx
 }
 
-export interface RadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
+export interface RadioGroupProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'onChange' | 'defaultValue'
+> {
   value?: string
   defaultValue?: string
   onValueChange?: (value: string) => void
@@ -185,18 +188,7 @@ export function RadioGroup({
       tabbableValue,
       register,
     }),
-    [
-      value,
-      select,
-      size,
-      disabled,
-      orientation,
-      baseId,
-      fill,
-      border,
-      tabbableValue,
-      register,
-    ],
+    [value, select, size, disabled, orientation, baseId, fill, border, tabbableValue, register],
   )
 
   return (
@@ -254,8 +246,10 @@ export function RadioGroup({
   )
 }
 
-export interface RadioGroupItemProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'value' | 'onChange'> {
+export interface RadioGroupItemProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'value' | 'onChange'
+> {
   value: string
   label?: ReactNode
   description?: ReactNode
@@ -272,8 +266,17 @@ function RadioGroupItem({
   onClick,
   ...rest
 }: RadioGroupItemProps) {
-  const { value: selectedValue, select, size, groupDisabled, baseId, fill, border, tabbableValue, register } =
-    useRadioGroupContext('RadioGroup.Item')
+  const {
+    value: selectedValue,
+    select,
+    size,
+    groupDisabled,
+    baseId,
+    fill,
+    border,
+    tabbableValue,
+    register,
+  } = useRadioGroupContext('RadioGroup.Item')
 
   const disabled = groupDisabled || disabledProp
   const selected = selectedValue === value
@@ -347,7 +350,10 @@ function RadioGroupItem({
             </span>
           )}
           {description != null && (
-            <span id={descriptionId} className="text-[11px] leading-snug text-[var(--sk-text-desc)]">
+            <span
+              id={descriptionId}
+              className="text-[11px] leading-snug text-[var(--sk-text-desc)]"
+            >
               {description}
             </span>
           )}

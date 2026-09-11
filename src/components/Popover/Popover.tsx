@@ -21,10 +21,7 @@ import { playCue } from '../../sound'
 export type PopoverSide = 'top' | 'bottom' | 'left' | 'right'
 export type PopoverAlign = 'start' | 'center' | 'end'
 
-type PopoverTriggerProps = Pick<
-  AriaAttributes,
-  'aria-haspopup' | 'aria-expanded' | 'aria-controls'
->
+type PopoverTriggerProps = Pick<AriaAttributes, 'aria-haspopup' | 'aria-expanded' | 'aria-controls'>
 
 export interface PopoverProps {
   trigger: ReactElement<PopoverTriggerProps>
