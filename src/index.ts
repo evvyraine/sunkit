@@ -1,7 +1,13 @@
 import './styles/globals.css'
 
 export { Button } from './components/Button'
-export type { ButtonProps, ButtonSize, ButtonIconPosition, ButtonColor } from './components/Button'
+export type {
+  ButtonProps,
+  ButtonSize,
+  ButtonIconPosition,
+  ButtonColor,
+  ButtonVariant,
+} from './components/Button'
 
 export { Input } from './components/Input'
 export type { InputProps, InputVariantProps } from './components/Input'
@@ -50,6 +56,49 @@ export type { ShapeProps, ShapeType, ShapeColor } from './components/Shape'
 
 export { Tooltip } from './components/Tooltip'
 export type { TooltipProps, TooltipSide } from './components/Tooltip'
+
+export { Avatar, AvatarGroup, avatarInitials } from './components/Avatar'
+export type {
+  AvatarProps,
+  AvatarGroupProps,
+  AvatarSize,
+  AvatarShape,
+  AvatarStatus,
+} from './components/Avatar'
+
+export { Separator } from './components/Separator'
+export type { SeparatorProps, SeparatorOrientation } from './components/Separator'
+
+export { Kbd } from './components/Kbd'
+export type { KbdProps, KbdSize } from './components/Kbd'
+
+export { EmptyState } from './components/EmptyState'
+export type { EmptyStateProps, EmptyStateSize } from './components/EmptyState'
+
+export { ScrollArea } from './components/ScrollArea'
+export type { ScrollAreaProps, ScrollAreaOrientation } from './components/ScrollArea'
+
+export { Sheet } from './components/Sheet'
+export type { SheetProps, SheetSide, SheetTone, SheetSize } from './components/Sheet'
+
+export { MessageList, Message, MessageBubble, MessageMeta, TypingIndicator } from './components/Message'
+export type {
+  MessageListProps,
+  MessageProps,
+  MessageBubbleProps,
+  MessageMetaProps,
+  TypingIndicatorProps,
+  MessageAlign,
+  MessageBubbleVariant,
+} from './components/Message'
+
+export { ToastProvider, useToast, toast, dismissToast, pauseToast, resumeToast } from './components/Toast'
+export type {
+  ToastProviderProps,
+  ToastOptions,
+  ToastItem,
+  ToastTone,
+} from './components/Toast'
 
 export { Popover } from './components/Popover'
 export type { PopoverProps, PopoverSide, PopoverAlign } from './components/Popover'

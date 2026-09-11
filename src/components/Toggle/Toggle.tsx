@@ -24,7 +24,7 @@ const TRACK_SIZES = {
 } as const
 
 const toggleVariants = cva(
-  'inline-flex items-center gap-3 font-[system-ui,_-apple-system,_sans-serif] select-none',
+  'inline-flex items-center gap-3 font-sans select-none',
   {
     variants: {
       size: { default: '', sm: '' },

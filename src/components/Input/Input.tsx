@@ -9,7 +9,7 @@ import { ThemeContext } from '../Theme/ThemeProvider'
 const inputVariants = cva(
   [
     'w-full min-w-0',
-    'font-[system-ui,_-apple-system,_sans-serif] text-[13px] leading-none',
+    'font-sans text-base leading-none sm:text-[13px]',
     'text-[var(--sk-text)] placeholder:text-[var(--sk-text-placeholder)]',
     'outline-none',
     'disabled:opacity-50 disabled:cursor-not-allowed',

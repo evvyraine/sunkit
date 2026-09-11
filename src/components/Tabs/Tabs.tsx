@@ -106,7 +106,7 @@ export function Tabs({
     <TabsContext.Provider value={ctx}>
       <div
         ref={rootRef}
-        className={cn('font-[system-ui,_-apple-system,_sans-serif]', className)}
+        className={cn('font-sans', className)}
         {...rest}
       >
         {children}

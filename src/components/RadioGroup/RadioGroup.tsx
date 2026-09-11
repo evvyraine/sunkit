@@ -193,7 +193,7 @@ export function RadioGroup({
 
   return (
     <RadioGroupContext.Provider value={ctx}>
-      <div className={cn('w-full font-[system-ui,_apple-system,_sans-serif]', className)}>
+      <div className={cn('w-full font-sans', className)}>
         {label != null && (
           <div
             id={labelId}

@@ -209,7 +209,7 @@ export function Popover({
           className={cn(
             'absolute z-50 outline-none',
             'min-w-[200px] max-w-[340px] rounded-[14px] border p-[14px]',
-            'font-[system-ui,_-apple-system,_sans-serif] text-[13px] leading-relaxed',
+            'font-sans text-[13px] leading-relaxed',
             'text-[var(--sk-text)]',
             contentClassName,
           )}

@@ -140,7 +140,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   }
 
   return (
-    <div className={cn('w-full font-[system-ui,_-apple-system,_sans-serif]', containerClassName)}>
+    <div className={cn('w-full font-sans', containerClassName)}>
       <label
         htmlFor={inputId}
         className={cn(

@@ -224,7 +224,7 @@ export function Alert({
         'alert-gradient',
         'flex gap-[10px] items-start',
         'rounded-[14px] px-[14px] py-[12px]',
-        'font-[system-ui,_-apple-system,_sans-serif]',
+        'font-sans',
         `alert-gradient-${variant}`,
         className,
       )}

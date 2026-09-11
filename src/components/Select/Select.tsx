@@ -25,7 +25,7 @@ export interface SelectOption {
 const triggerVariants = cva(
   [
     'w-full min-w-0 inline-flex items-center justify-between gap-2',
-    'font-[system-ui,_-apple-system,_sans-serif] text-[13px] leading-none',
+    'font-sans text-base leading-none sm:text-[13px]',
     'text-[var(--sk-text)]',
     'outline-none cursor-pointer select-none',
     'transition-[box-shadow,border-color,background-color,opacity] duration-[150ms] ease-out',
@@ -393,7 +393,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
                     setSearch(e.target.value)
                     setActiveIdx(0)
                   }}
-                  className="w-full outline-none bg-transparent text-[13px] text-[var(--sk-text)] placeholder:text-[var(--sk-text-placeholder)] px-[6px] py-[4px]"
+                  className="w-full outline-none bg-transparent text-base sm:text-[13px] text-[var(--sk-text)] placeholder:text-[var(--sk-text-placeholder)] px-[6px] py-[4px]"
                 />
               </div>
             )}
@@ -416,7 +416,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
                     onClick={() => selectOption(opt)}
                     className={cn(
                       'w-full flex items-center justify-between gap-2 px-[10px] py-[8px] rounded-[8px]',
-                      'text-[13px] text-[var(--sk-text)] leading-[1.2] text-left outline-none cursor-pointer',
+                      'text-base sm:text-[13px] text-[var(--sk-text)] leading-[1.2] text-left outline-none cursor-pointer',
                       'transition-colors duration-75',
                       idx === activeIdx && !opt.disabled && 'bg-[var(--sk-surface-filled)]',
                       opt.value === value && 'font-medium',

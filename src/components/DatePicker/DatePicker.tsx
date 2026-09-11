@@ -635,7 +635,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
   return (
     <div
       className={cn(
-        'w-full font-[system-ui,_-apple-system,_sans-serif] dp-root',
+        'w-full font-sans dp-root',
         containerClassName,
       )}
     >

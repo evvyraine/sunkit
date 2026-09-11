@@ -15,8 +15,9 @@ export type ButtonIconPosition = 'none' | 'left' | 'right' | 'only'
 const buttonVariants = cva(
   [
     'inline-flex items-center justify-center gap-[7px]',
-    'font-[system-ui,_-apple-system,_sans-serif] font-medium leading-none',
+    'font-sans font-medium leading-none',
     'cursor-pointer border outline-none select-none relative',
+    'focus-visible:ring-2 focus-visible:ring-[var(--sk-accent,#7c6cdc)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--sk-bg-solid)]',
     'rounded-[var(--btn-radius)]',
     'btn-transition',
     'active:scale-[0.972]',

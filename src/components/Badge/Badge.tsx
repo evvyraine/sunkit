@@ -7,7 +7,7 @@ const badgeVariants = cva(
   [
     'inline-flex items-center gap-[5px] whitespace-nowrap align-middle',
     'rounded-full border font-medium leading-none',
-    'font-[system-ui,_-apple-system,_sans-serif]',
+    'font-sans',
   ].join(' '),
   {
     variants: {

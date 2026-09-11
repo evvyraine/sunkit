@@ -134,7 +134,7 @@ export function Tooltip({
           className={cn(
             'absolute z-50 pointer-events-none',
             'w-max max-w-[280px] rounded-[8px] border px-[9px] py-[6px]',
-            'font-[system-ui,_-apple-system,_sans-serif] text-[12px] leading-snug',
+            'font-sans text-[12px] leading-snug',
             'text-[var(--sk-text)] select-none',
             'shadow-[0_4px_16px_-4px_var(--sk-shadow-b),0_1px_3px_var(--sk-shadow-c)]',
             'backdrop-blur-[8px] [-webkit-backdrop-filter:blur(8px)]',

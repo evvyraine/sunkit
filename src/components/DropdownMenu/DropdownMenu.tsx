@@ -371,7 +371,7 @@ function DropdownMenuRoot({
           className={cn(
             'absolute z-50 outline-none p-[4px]',
             'min-w-[180px] max-w-[320px] rounded-[12px] border',
-            'font-[system-ui,_-apple-system,_sans-serif]',
+            'font-sans',
             contentClassName,
           )}
         >

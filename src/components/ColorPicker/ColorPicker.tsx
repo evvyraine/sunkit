@@ -70,7 +70,7 @@ export function ColorPicker({
   return (
     <div
       className={cn(
-        'inline-flex flex-col gap-[8px] font-[system-ui,_-apple-system,_sans-serif]',
+        'inline-flex flex-col gap-[8px] font-sans',
         className,
       )}
     >

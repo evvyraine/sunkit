@@ -12,7 +12,7 @@ import { ThemeContext } from '../Theme/ThemeProvider'
 
 const cardVariants = cva(
   [
-    'font-[system-ui,_-apple-system,_sans-serif]',
+    'font-sans',
     'overflow-hidden',
     'transition-[box-shadow,background-color,border-color] duration-150 ease-out',
   ].join(' '),

@@ -169,7 +169,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
   return (
     <div
       className={cn(
-        'w-full select-none font-[system-ui,_-apple-system,_sans-serif]',
+        'w-full select-none font-sans',
         disabled && 'opacity-50 cursor-not-allowed',
         className,
       )}

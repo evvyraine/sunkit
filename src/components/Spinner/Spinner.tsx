@@ -40,7 +40,7 @@ export function Spinner({
     <span
       role="status"
       className={cn(
-        'inline-flex font-[system-ui,_-apple-system,_sans-serif]',
+        'inline-flex font-sans',
         labelPosition === 'right' && 'flex-row items-center gap-[8px]',
         labelPosition === 'bottom' && 'flex-col items-center gap-[6px]',
         className,

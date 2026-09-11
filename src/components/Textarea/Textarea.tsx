@@ -18,7 +18,7 @@ import { ThemeContext } from '../Theme/ThemeProvider'
 const textareaVariants = cva(
   [
     'w-full min-w-0',
-    'font-[system-ui,_-apple-system,_sans-serif] text-[13px] text-[var(--sk-text)] leading-[1.5]',
+    'font-sans text-base text-[var(--sk-text)] leading-[1.5] sm:text-[13px]',
     'outline-none resize-none',
     'placeholder:text-[var(--sk-text-placeholder)]',
     'disabled:opacity-50 disabled:cursor-not-allowed',

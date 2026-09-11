@@ -86,7 +86,7 @@ export function Progress({
       }
 
   return (
-    <div className={cn('w-full font-[system-ui,_-apple-system,_sans-serif]', className)}>
+    <div className={cn('w-full font-sans', className)}>
       {(label != null || (showValue && !isIndeterminate)) && (
         <div className="flex items-center justify-between gap-3 mb-[6px]">
           {label != null && (

@@ -147,6 +147,20 @@ function starPolygon(points: number, innerRatio: number, offsetDeg = -90): Pt[] 
 
 // ── Clip-path catalog ─────────────────────────────────────────────────────────
 
+/**
+ * Nudge for shapes whose visual mass is not at the bounding-box centre, so a
+ * glyph inside them optically centres instead of looking high or low.
+ * Values are percentages of the shape size.
+ */
+const CONTENT_OFFSET: Partial<Record<ShapeType, { x: number; y: number }>> = {
+  triangle: { x: 0, y: 17 },
+  'triangle-down': { x: 0, y: -17 },
+  'arrow-right': { x: -7, y: 0 },
+  'arrow-left': { x: 7, y: 0 },
+  'arrow-up': { x: 0, y: 7 },
+  'arrow-down': { x: 0, y: -7 },
+}
+
 /** Returns the polygon points in % space (0-100), or null for non-polygon shapes. */
 function getPolygonPts(shape: ShapeType): Pt[] | null {
   switch (shape) {
@@ -311,6 +325,7 @@ export function Shape({
 
   const sizePx = typeof size === 'number' ? size : (SIZE_MAP[size] ?? 48)
   const clipPath = getClipPath(shape, Math.max(0, Math.min(radius, 49)), sizePx)
+  const contentOffset = CONTENT_OFFSET[shape]
 
   const Tag = as ?? (clickable ? 'button' : 'div')
 
@@ -337,7 +352,18 @@ export function Shape({
       )}
       style={wrapStyle}
     >
-      {children}
+      {contentOffset ? (
+        <span
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            transform: `translate(${contentOffset.x}%, ${contentOffset.y}%)`,
+          }}
+        >
+          {children}
+        </span>
+      ) : (
+        children
+      )}
     </Tag>
   )
 }
