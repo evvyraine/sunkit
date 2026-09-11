@@ -42,15 +42,17 @@ jobs:
       # Trusted Publishing (OIDC) via `id-token: write`, so there is no
       # NPM_TOKEN to store or rotate. Provenance is attached on publish.
       - name: Create release PR or publish
-        uses: changesets/action@v1
+        uses: changesets/action@v2.1.2
         with:
-          version: pnpm run version-packages
-          publish: bash scripts/publish.sh
-          commit: "chore: version packages"
-          title: "chore: version packages"
-          # The publish script creates the git tag and GitHub Release itself
+          version-script: pnpm run version-packages
+          publish-script: bash scripts/publish.sh
+          commit-message: "chore: version packages"
+          pr-title: "chore: version packages (alpha)"
+          # scripts/publish.sh creates the git tag and GitHub Release itself
           # (it uses `npm publish` for OIDC support, not `changeset publish`).
-          createGithubReleases: false
+          create-github-releases: "false"
+          push-git-tags: "false"
+          push-with-git-cli: "true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
