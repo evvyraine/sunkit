@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type CSSProperties } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode, type CSSProperties } from 'react'
 import { cn } from '../../lib/utils'
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'error'
@@ -9,6 +9,8 @@ export interface AlertProps {
   children?: ReactNode
   dismissable?: boolean
   onDismiss?: () => void
+  /** Accessible label for the dismiss button. Defaults to `"Dismiss"`. */
+  dismissLabel?: string
   icon?: ReactNode
   className?: string
 }
@@ -147,36 +149,66 @@ const DEFAULT_ICONS: Record<AlertVariant, ReactNode> = {
   error: <ErrorIcon />,
 }
 
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
 export function Alert({
   variant = 'info',
   title,
   children,
   dismissable = false,
   onDismiss,
+  dismissLabel = 'Dismiss',
   icon,
   className,
 }: AlertProps) {
   const [state, setState] = useState<'in' | 'dismissing' | 'out'>('in')
+  const finalized = useRef(false)
   const map = VARIANT_MAP[variant]
+
+  const finalize = useCallback(() => {
+    if (finalized.current) return
+    finalized.current = true
+    setState('out')
+    onDismiss?.()
+  }, [onDismiss])
+
+  // Fallback for environments where `animationend` never fires (reduced motion,
+  // jsdom, interrupted animations) so dismissal is never left hanging.
+  useEffect(() => {
+    if (state !== 'dismissing') return
+    const timer = setTimeout(finalize, 260)
+    return () => clearTimeout(timer)
+  }, [state, finalize])
 
   if (state === 'out') return null
 
   const handleDismiss = () => {
+    if (state !== 'in') return
+    if (prefersReducedMotion()) {
+      finalize()
+      return
+    }
     setState('dismissing')
   }
 
   const handleAnimationEnd = () => {
-    if (state === 'dismissing') {
-      setState('out')
-      onDismiss?.()
-    }
+    if (state === 'dismissing') finalize()
   }
+
+  const motionSafe = !prefersReducedMotion()
 
   const alertStyle: CSSProperties = {
     // gradient set via JS so we can react to dark-class at render time;
     // we rely on a CSS custom prop fallback approach via data attribute instead.
-    animation:
-      state === 'dismissing'
+    animation: !motionSafe
+      ? 'none'
+      : state === 'dismissing'
         ? `alert-out 220ms cubic-bezier(0.4, 0, 1, 1) both`
         : `alert-in 240ms cubic-bezier(0.34, 1.42, 0.64, 1) both`,
     overflow: 'hidden',
@@ -221,7 +253,7 @@ export function Alert({
       {dismissable && (
         <button
           type="button"
-          aria-label="Dismiss"
+          aria-label={dismissLabel}
           onClick={handleDismiss}
           className="shrink-0 mt-[1px] text-[var(--sk-text-muted)] hover:text-[var(--sk-text)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--sk-border-strong)] rounded-[4px] cursor-pointer transition-colors duration-100"
         >

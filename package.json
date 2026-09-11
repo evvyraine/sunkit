@@ -3,6 +3,34 @@
   "version": "0.1.0-alpha.3",
   "description": "Sunkit — pastel React component library",
   "type": "module",
+  "license": "MIT",
+  "author": "Sunkit contributors",
+  "homepage": "https://evvyraine.github.io/sunkit/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evvyraine/sunkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/evvyraine/sunkit/issues"
+  },
+  "keywords": [
+    "react",
+    "component-library",
+    "design-system",
+    "ui",
+    "pastel",
+    "tailwindcss",
+    "storybook",
+    "web-audio",
+    "sound"
+  ],
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/sunkit.cjs",
   "module": "dist/sunkit.js",
   "types": "dist/index.d.ts",
@@ -32,13 +60,15 @@
     "format": "prettier --write src",
     "format:check": "prettier --check src",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "screenshots": "bash scripts/screenshots.sh"
   },
   "peerDependencies": {
     "react": ">=19",
     "react-dom": ">=19"
   },
   "devDependencies": {
+    "@eslint/js": "^9.26.0",
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/react": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
@@ -51,11 +81,10 @@
     "@vitejs/plugin-react": "^6.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cuelume": "^0.2.2",
     "eslint": "^9.26.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "@eslint/js": "^9.26.0",
-    "typescript-eslint": "^8.32.0",
     "globals": "^16.1.0",
     "jsdom": "^26.1.0",
     "prettier": "^3.5.3",
@@ -65,6 +94,7 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
+    "typescript-eslint": "^8.32.0",
     "vite": "^8.0.8",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.1.2"

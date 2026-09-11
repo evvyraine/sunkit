@@ -11,8 +11,9 @@ import {
 } from 'react'
 import { cn } from '../../lib/utils'
 import { resolveAccent, isColorLight } from '../../lib/accent'
+import { TONE_BORDER, TONE_FILL } from '../../tokens/tones'
 import { ThemeContext } from '../Theme/ThemeProvider'
-import { useCheckboxSound } from '../../hooks/useCheckboxSound'
+import { playCue } from '../../sound'
 
 export type CheckboxTone =
   | 'rose'
@@ -45,27 +46,6 @@ export interface CheckboxProps {
   'aria-describedby'?: string
   containerClassName?: string
   className?: string
-}
-
-const TONE_FILL: Record<CheckboxTone, string> = {
-  rose: '#F9C5D1',
-  peach: '#FDDBB4',
-  lemon: '#FFF1A8',
-  mint: '#B8F0D8',
-  sky: '#B8DFFE',
-  lavender: '#D4C5F9',
-  lilac: '#F0C8F0',
-  neutral: '#E8E4DC',
-}
-const TONE_BORDER: Record<CheckboxTone, string> = {
-  rose: '#c2607a',
-  peach: '#b87a3a',
-  lemon: '#8a7820',
-  mint: '#2a7a58',
-  sky: '#2a68a0',
-  lavender: '#5a3eaa',
-  lilac: '#8a3a8a',
-  neutral: '#5a5550',
 }
 
 const BOX: Record<
@@ -132,9 +112,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     }
   }, [indeterminate])
 
-  useCheckboxSound(inputRef, checked)
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    playCue('toggle')
     if (!isControlled) setCheckedUncontrolled(e.target.checked)
     onCheckedChange?.(e.target.checked)
   }

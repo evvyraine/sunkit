@@ -89,16 +89,16 @@ export const AllTones: Story = {
       {COLORS.map((c) => (
         <Dialog
           key={c.id}
-          tone={c.id as any}
+          tone={c.id}
           title={c.label}
           description="Tone accent on border and close button."
           trigger={
-            <Button color={c.id as any} size="sm">
+            <Button color={c.id} size="sm">
               {c.label}
             </Button>
           }
           footer={
-            <Button color={c.id as any} size="sm">
+            <Button color={c.id} size="sm">
               Close
             </Button>
           }

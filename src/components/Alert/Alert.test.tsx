@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { Alert } from './Alert'
@@ -23,7 +23,7 @@ describe('Alert', () => {
   it('hides after dismiss', async () => {
     render(<Alert dismissable>Message</Alert>)
     await userEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
-    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    await waitFor(() => expect(screen.queryByRole('alert')).not.toBeInTheDocument())
   })
 
   it('calls onDismiss callback', async () => {
@@ -34,7 +34,7 @@ describe('Alert', () => {
       </Alert>,
     )
     await userEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
-    expect(handler).toHaveBeenCalledTimes(1)
+    await waitFor(() => expect(handler).toHaveBeenCalledTimes(1))
   })
 
   it('renders custom icon', () => {

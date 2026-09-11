@@ -48,10 +48,67 @@ export type { CheckboxProps, CheckboxTone, CheckboxSize } from './components/Che
 export { Shape } from './components/Shape'
 export type { ShapeProps, ShapeType, ShapeColor } from './components/Shape'
 
+export { Tooltip } from './components/Tooltip'
+export type { TooltipProps, TooltipSide } from './components/Tooltip'
+
+export { Popover } from './components/Popover'
+export type { PopoverProps, PopoverSide, PopoverAlign } from './components/Popover'
+
+export { DropdownMenu } from './components/DropdownMenu'
+export type {
+  DropdownMenuProps,
+  DropdownMenuItemProps,
+  DropdownMenuSeparatorProps,
+  DropdownMenuLabelProps,
+  DropdownMenuSide,
+  DropdownMenuAlign,
+} from './components/DropdownMenu'
+
+export { Tabs } from './components/Tabs'
+export type {
+  TabsProps,
+  TabsListProps,
+  TabsTriggerProps,
+  TabsContentProps,
+  TabsOrientation,
+} from './components/Tabs'
+
+export { RadioGroup } from './components/RadioGroup'
+export type {
+  RadioGroupProps,
+  RadioGroupItemProps,
+  RadioGroupSize,
+  RadioGroupOrientation,
+} from './components/RadioGroup'
+
+export { Badge } from './components/Badge'
+export type { BadgeProps, BadgeTone, BadgeVariant, BadgeSize } from './components/Badge'
+
+export { Skeleton } from './components/Skeleton'
+export type { SkeletonProps, SkeletonVariant } from './components/Skeleton'
+
+export { Spinner } from './components/Spinner'
+export type { SpinnerProps, SpinnerSize, SpinnerLabelPosition } from './components/Spinner'
+
 export { ThemeProvider, ThemeContext, useTheme } from './components/Theme'
 export type { ThemeProviderProps, ThemeContextValue } from './components/Theme'
 
+export { SoundProvider, useSound } from './sound'
+export type { SoundProviderProps, SoundSettings, SoundCue } from './sound'
+export {
+  playCue,
+  playSound,
+  playColorCue,
+  setSoundEnabled,
+  setSoundVolume,
+  setRespectReducedMotion,
+  getSoundSettings,
+  subscribeSound,
+} from './sound'
+
 export type { ColorToken } from './tokens/colors'
 export { COLORS, COLOR_MAP } from './tokens/colors'
+export type { Tone } from './tokens/tones'
+export { TONES } from './tokens/tones'
 
 export { resolveAccent, hexToAccentPair } from './lib/accent'

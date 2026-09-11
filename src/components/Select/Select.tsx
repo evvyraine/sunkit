@@ -12,7 +12,7 @@ import React, {
 } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../lib/utils'
-import { playSelectOpen, playSelectChoose, useSelectSoundCtx } from '../../hooks/useSelectSound'
+import { playCue } from '../../sound'
 import { hexToAccentPair } from '../../lib/accent'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
@@ -90,6 +90,10 @@ export interface SelectProps extends Omit<SelectVariantProps, 'tone'> {
   placeholder?: string
   disabled?: boolean
   searchable?: boolean
+  /** Placeholder for the search box when `searchable`. */
+  searchPlaceholder?: string
+  /** Message shown when a search returns no options. */
+  emptyMessage?: ReactNode
   label?: ReactNode
   description?: ReactNode
   error?: ReactNode
@@ -144,6 +148,8 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
     placeholder = 'Select…',
     disabled = false,
     searchable = false,
+    searchPlaceholder = 'Search…',
+    emptyMessage = 'No options',
     label,
     description,
     error,
@@ -160,7 +166,6 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
   },
   ref,
 ) {
-  const actx = useSelectSoundCtx()
   const autoId = useId()
   const triggerId = id ?? `select-${autoId}`
   const listId = `${triggerId}-list`
@@ -207,8 +212,8 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
     setSearch('')
     const idx = filtered.findIndex((o) => o.value === value)
     setActiveIdx(idx >= 0 ? idx : 0)
-    playSelectOpen(actx)
-  }, [disabled, filtered, value, actx])
+    playCue('menuOpen')
+  }, [disabled, filtered, value])
 
   const closePanel = useCallback(() => {
     setClosing(true)
@@ -219,10 +224,10 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
       if (opt.disabled) return
       if (!isControlled) setValueUncontrolled(opt.value)
       onChange?.(opt.value)
-      playSelectChoose(actx)
+      playCue('commit')
       closePanel()
     },
-    [isControlled, onChange, actx, closePanel],
+    [isControlled, onChange, closePanel],
   )
 
   useEffect(() => {
@@ -331,6 +336,11 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
           aria-haspopup="listbox"
           aria-expanded={open}
           aria-controls={open ? listId : undefined}
+          aria-activedescendant={
+            open && activeIdx >= 0 && filtered[activeIdx]
+              ? `${listId}-option-${activeIdx}`
+              : undefined
+          }
           aria-invalid={isInvalid || undefined}
           aria-describedby={describedBy}
           disabled={!!disabled}
@@ -377,7 +387,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
                 <input
                   ref={searchRef}
                   type="text"
-                  placeholder="Search…"
+                  placeholder={searchPlaceholder}
                   value={search}
                   onChange={(e) => {
                     setSearch(e.target.value)
@@ -390,12 +400,13 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
             <div className="overflow-y-auto p-[4px]" style={{ maxHeight: searchable ? 210 : 252 }}>
               {filtered.length === 0 ? (
                 <div className="text-[12px] text-[var(--sk-text-muted)] px-[10px] py-[8px]">
-                  No options
+                  {emptyMessage}
                 </div>
               ) : (
                 filtered.map((opt, idx) => (
                   <button
                     key={opt.value}
+                    id={`${listId}-option-${idx}`}
                     type="button"
                     role="option"
                     aria-selected={opt.value === value}

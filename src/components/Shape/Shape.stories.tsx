@@ -76,7 +76,7 @@ export const AllColors: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
       {COLORS.map((c) => (
-        <Shape key={c.id} {...args} color={c.id as any} />
+        <Shape key={c.id} {...args} color={c.id} />
       ))}
     </div>
   ),
@@ -131,7 +131,7 @@ export const WithChildren: Story = {
         ),
       )}
       {COLORS.map((c) => (
-        <Shape key={c.id} shape="hexagon" color={c.id as any} size="md">
+        <Shape key={c.id} shape="hexagon" color={c.id} size="md">
           <svg
             width="18"
             height="18"
@@ -158,7 +158,7 @@ export const Clickable: Story = {
         <Shape
           key={c.id}
           {...args}
-          color={c.id as any}
+          color={c.id}
           clickable
           onClick={() => alert(`Clicked ${c.label}!`)}
         />

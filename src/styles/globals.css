@@ -1,5 +1,20 @@
 @import 'tailwindcss';
 
+/* Sunkit themes dark mode through the `.dark` / `[data-theme='dark']` class
+   (see ThemeProvider), so the `dark:` variant must follow that class instead
+   of Tailwind's default `prefers-color-scheme` media query. The OS preference
+   is still honoured when neither a `.light` nor a `.dark` scope is present. */
+@custom-variant dark {
+  &:where(.dark, .dark *, [data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:not(.light, .light *) {
+      @slot;
+    }
+  }
+}
+
 @theme {
   --color-pastel-rose: #f9c5d1;
   --color-pastel-rose-dark: #c2607a;
@@ -322,5 +337,37 @@
   to {
     opacity: 0;
     transform: scale(0.96) translateY(-4px);
+  }
+}
+
+/* ── Loading indicators ──────────────────────────────────────────────────── */
+@keyframes sk-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.sk-spinner-animated {
+  animation: sk-spin 0.7s linear infinite;
+  transform-origin: center;
+}
+
+.sk-skeleton-animated {
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-spinner-animated,
+  .sk-skeleton-animated {
+    animation: none;
   }
 }

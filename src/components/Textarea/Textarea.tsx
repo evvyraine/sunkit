@@ -11,7 +11,7 @@ import React, {
 } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../lib/utils'
-import { useInputSound } from '../../hooks/useInputSound'
+import { playCue } from '../../sound'
 import { hexToAccentPair } from '../../lib/accent'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
@@ -175,8 +175,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   const resolvedAccent = accentColorProp ?? ctxAccent
   const [focused, setFocused] = useState(false)
 
-  useInputSound(innerRef)
-
   const setRef = useCallback(
     (node: HTMLTextAreaElement | null) => {
       ;(innerRef as React.MutableRefObject<HTMLTextAreaElement | null>).current = node
@@ -251,6 +249,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
           onChange={handleChange}
           onFocus={(e) => {
             setFocused(true)
+            playCue('focus')
             rest.onFocus?.(e)
           }}
           onBlur={(e) => {

@@ -625,7 +625,7 @@ function ProjectSetupApp({ dark, accent }: { dark: boolean; accent: string }) {
           </div>
           {!termsAccepted && (
             <Alert variant="warning" title="Terms not accepted">
-              You haven't accepted the Terms of Service yet.
+              You haven&apos;t accepted the Terms of Service yet.
             </Alert>
           )}
         </div>

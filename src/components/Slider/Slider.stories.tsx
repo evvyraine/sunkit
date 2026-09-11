@@ -7,6 +7,7 @@ const meta: Meta<typeof Slider> = {
   title: 'Atoms/Slider',
   component: Slider,
   tags: ['autodocs'],
+  parameters: { layout: 'padded' },
   argTypes: {
     tone: { control: 'select', options: COLORS.map((c) => c.id) },
     size: { control: 'select', options: ['default', 'sm'] },

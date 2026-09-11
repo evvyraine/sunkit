@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useContext, useId, useRef, useState } f
 import type { InputHTMLAttributes, CSSProperties, ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../lib/utils'
-import { useInputSound } from '../../hooks/useInputSound'
+import { playCue } from '../../sound'
 import { hexToAccentPair } from '../../lib/accent'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
@@ -170,8 +170,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const resolvedAccent = accentColorProp ?? ctxAccent
   const [focused, setFocused] = useState(false)
 
-  useInputSound(innerRef)
-
   const setRef = useCallback(
     (node: HTMLInputElement | null) => {
       ;(innerRef as React.MutableRefObject<HTMLInputElement | null>).current = node
@@ -234,6 +232,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           disabled={disabled}
           onFocus={(e) => {
             setFocused(true)
+            playCue('focus')
             rest.onFocus?.(e)
           }}
           onBlur={(e) => {

@@ -11,7 +11,7 @@ import React, {
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../lib/utils'
-import { useToggleSound } from '../../hooks/useToggleSound'
+import { playCue } from '../../sound'
 import { hexToAccentPair } from '../../lib/accent'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
@@ -127,12 +127,11 @@ export const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(function Toggle
     if (disabled) return undefined
     return () => {
       const next = !checked
+      playCue('toggle')
       if (!isControlled) setCheckedUncontrolled(next)
       onCheckedChange?.(next)
     }
   }, [checked, disabled, isControlled, onCheckedChange])
-
-  useToggleSound(btnRef, checked)
 
   const setRef = useCallback(
     (node: HTMLButtonElement | null) => {

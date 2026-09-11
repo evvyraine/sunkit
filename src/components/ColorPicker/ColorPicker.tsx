@@ -2,7 +2,7 @@ import React, { useId } from 'react'
 import type { ReactNode } from 'react'
 import { cn } from '../../lib/utils'
 import { COLORS, type ButtonColor } from '../../tokens/colors'
-import { useColorPickerSoundCtx, playColorPluck } from '../../hooks/useColorPickerSound'
+import { playColorCue } from '../../sound'
 
 export type ColorPickerSize = 'default' | 'sm'
 
@@ -47,7 +47,6 @@ export function ColorPicker({
   className,
   id,
 }: ColorPickerProps) {
-  const actx = useColorPickerSoundCtx()
   const autoId = useId()
   const groupId = id ?? `colorpicker-${autoId}`
   const descId = description ? `${groupId}-desc` : undefined
@@ -65,7 +64,7 @@ export function ColorPicker({
     if (disabled) return
     if (!isControlled) setValueUncontrolled(colorId)
     onChange?.(colorId)
-    playColorPluck(actx, colorId)
+    playColorCue(colorId)
   }
 
   return (

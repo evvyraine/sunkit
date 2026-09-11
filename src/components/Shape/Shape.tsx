@@ -1,6 +1,7 @@
 import React, { useContext, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
 import { cn } from '../../lib/utils'
 import { resolveAccent } from '../../lib/accent'
+import { TONE_BORDER, TONE_FILL } from '../../tokens/tones'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
 export type ShapeType =
@@ -49,27 +50,6 @@ export interface ShapeProps {
   className?: string
   style?: CSSProperties
   as?: 'div' | 'button'
-}
-
-const TONE_FILL: Record<ShapeColor, string> = {
-  rose: '#F9C5D1',
-  peach: '#FDDBB4',
-  lemon: '#FFF1A8',
-  mint: '#B8F0D8',
-  sky: '#B8DFFE',
-  lavender: '#D4C5F9',
-  lilac: '#F0C8F0',
-  neutral: '#E8E4DC',
-}
-const TONE_BORDER: Record<ShapeColor, string> = {
-  rose: '#c2607a',
-  peach: '#b87a3a',
-  lemon: '#8a7820',
-  mint: '#2a7a58',
-  sky: '#2a68a0',
-  lavender: '#5a3eaa',
-  lilac: '#8a3a8a',
-  neutral: '#5a5550',
 }
 
 const SIZE_MAP: Record<string, number> = {

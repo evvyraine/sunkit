@@ -12,8 +12,9 @@ import {
 import { createPortal } from 'react-dom'
 import { cn } from '../../lib/utils'
 import { resolveAccent } from '../../lib/accent'
+import { TONE_BORDER, TONE_FILL } from '../../tokens/tones'
 import { ThemeContext } from '../Theme/ThemeProvider'
-import { useDialogSound } from '../../hooks/useDialogSound'
+import { playCue } from '../../sound'
 
 export type DialogTone =
   | 'rose'
@@ -39,31 +40,12 @@ export interface DialogProps {
   size?: DialogSize
   closable?: boolean
   closeOnOverlay?: boolean
+  /** Accessible label for the close button. Defaults to `"Close dialog"`. */
+  closeLabel?: string
   tone?: DialogTone
   accentColor?: string
   radius?: number
   className?: string
-}
-
-const TONE_FILL: Record<DialogTone, string> = {
-  rose: '#F9C5D1',
-  peach: '#FDDBB4',
-  lemon: '#FFF1A8',
-  mint: '#B8F0D8',
-  sky: '#B8DFFE',
-  lavender: '#D4C5F9',
-  lilac: '#F0C8F0',
-  neutral: '#E8E4DC',
-}
-const TONE_BORDER: Record<DialogTone, string> = {
-  rose: '#c2607a',
-  peach: '#b87a3a',
-  lemon: '#8a7820',
-  mint: '#2a7a58',
-  sky: '#2a68a0',
-  lavender: '#5a3eaa',
-  lilac: '#8a3a8a',
-  neutral: '#5a5550',
 }
 
 const SIZE_W: Record<DialogSize, string> = {
@@ -106,6 +88,7 @@ export function Dialog({
   size = 'default',
   closable = true,
   closeOnOverlay = true,
+  closeLabel = 'Close dialog',
   tone = 'lavender',
   accentColor: accentColorProp,
   radius = 16,
@@ -124,8 +107,6 @@ export function Dialog({
     resolvedAccentHex,
   )
 
-  const sound = useDialogSound()
-
   const isControlled = openProp !== undefined
   const [openUncontrolled, setOpenUncontrolled] = useState(defaultOpen)
   const isOpen = isControlled ? openProp! : openUncontrolled
@@ -137,10 +118,10 @@ export function Dialog({
   useEffect(() => {
     if (isOpen) {
       setAnimState('open')
-      sound.playOpen()
+      playCue('open')
     } else if (animState === 'open') {
       setAnimState('closing')
-      sound.playClose()
+      playCue('close')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen])
@@ -303,7 +284,7 @@ export function Dialog({
             {closable && (
               <button
                 type="button"
-                aria-label="Close dialog"
+                aria-label={closeLabel}
                 onClick={close}
                 className="shrink-0 mt-[1px] flex items-center justify-center w-[26px] h-[26px] rounded-[7px] text-[var(--sk-text-muted)] hover:text-[var(--sk-text)] hover:bg-[var(--sk-surface-filled)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--sk-border-strong)] cursor-pointer transition-colors duration-100"
                 style={{ color: accentBorder + 'bb' }}

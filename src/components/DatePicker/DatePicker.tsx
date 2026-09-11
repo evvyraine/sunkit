@@ -10,8 +10,9 @@ import React, {
   type ReactNode,
 } from 'react'
 import { cn } from '../../lib/utils'
-import { playPickerNav, playPickerSelect, usePickerSoundCtx } from '../../hooks/usePickerSound'
+import { playCue } from '../../sound'
 import { resolveAccent } from '../../lib/accent'
+import { TONE_BORDER, TONE_FILL } from '../../tokens/tones'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
 export type DatePickerTone =
@@ -65,28 +66,6 @@ const MONTHS = [
   'November',
   'December',
 ]
-
-const TONE_FILL: Record<DatePickerTone, string> = {
-  rose: '#F9C5D1',
-  peach: '#FDDBB4',
-  lemon: '#FFF1A8',
-  mint: '#B8F0D8',
-  sky: '#B8DFFE',
-  lavender: '#D4C5F9',
-  lilac: '#F0C8F0',
-  neutral: '#E8E4DC',
-}
-
-const TONE_BORDER: Record<DatePickerTone, string> = {
-  rose: '#c2607a',
-  peach: '#b87a3a',
-  lemon: '#8a7820',
-  mint: '#2a7a58',
-  sky: '#2a68a0',
-  lavender: '#5a3eaa',
-  lilac: '#8a3a8a',
-  neutral: '#5a5550',
-}
 
 function isSameDay(a: Date, b: Date) {
   return (
@@ -435,7 +414,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
   },
   ref,
 ) {
-  const actx = usePickerSoundCtx()
   const autoId = useId()
   const inputId = id ?? `datepicker-${autoId}`
   const panelId = `${inputId}-panel`
@@ -504,6 +482,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
 
   const openPanel = useCallback(() => {
     if (disabled) return
+    playCue('menuOpen')
     setClosing(false)
     setCalView('days')
     setOpen(true)
@@ -530,7 +509,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
       setViewMonth(11)
       setViewYear((y) => y - 1)
     } else setViewMonth((m) => m - 1)
-    playPickerNav(actx, 'prev')
+    playCue('navigate')
   }
 
   const nextMonth = () => {
@@ -538,7 +517,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
       setViewMonth(0)
       setViewYear((y) => y + 1)
     } else setViewMonth((m) => m + 1)
-    playPickerNav(actx, 'next')
+    playCue('navigate')
   }
 
   // ── selection ─────────────────────────────────────────────────────────────────
@@ -546,7 +525,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
   const selectSingle = (date: Date) => {
     if (!isSingleControlled) setSingleUncontrolled(date)
     onChange?.(date)
-    playPickerSelect(actx)
+    playCue('commit')
     setInputText(formatDate(date))
     closePanel()
   }
@@ -558,7 +537,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
       onRangeChange?.(next)
       setInputText(formatDate(date))
       setRangePicking('end')
-      playPickerSelect(actx)
+      playCue('commit')
     } else {
       let start = rangeValue[0]!
       let end = date
@@ -568,7 +547,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
       onRangeChange?.(next)
       setInputText(formatRange(next))
       setRangePicking('start')
-      playPickerSelect(actx)
+      playCue('commit')
       closePanel()
     }
   }

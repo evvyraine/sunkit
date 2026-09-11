@@ -9,8 +9,9 @@ import React, {
   type ReactNode,
 } from 'react'
 import { cn } from '../../lib/utils'
-import { useSliderSound } from '../../hooks/useSliderSound'
+import { playCue } from '../../sound'
 import { resolveAccent } from '../../lib/accent'
+import { TONE_BORDER, TONE_FILL } from '../../tokens/tones'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
 const SPRING = 'cubic-bezier(0.34, 1.42, 0.64, 1)'
@@ -56,28 +57,6 @@ export interface SliderProps {
 const TRACK_H: Record<SliderSize, number> = { default: 6, sm: 4 }
 const THUMB_D: Record<SliderSize, number> = { default: 20, sm: 15 }
 
-const TONE_FILL: Record<SliderTone, string> = {
-  rose: '#F9C5D1',
-  peach: '#FDDBB4',
-  lemon: '#FFF1A8',
-  mint: '#B8F0D8',
-  sky: '#B8DFFE',
-  lavender: '#D4C5F9',
-  lilac: '#F0C8F0',
-  neutral: '#E8E4DC',
-}
-
-const TONE_BORDER: Record<SliderTone, string> = {
-  rose: '#c2607a',
-  peach: '#b87a3a',
-  lemon: '#8a7820',
-  mint: '#2a7a58',
-  sky: '#2a68a0',
-  lavender: '#5a3eaa',
-  lilac: '#8a3a8a',
-  neutral: '#5a5550',
-}
-
 export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
   {
     min = 0,
@@ -113,8 +92,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
   const value = isControlled ? valueProp! : valueUncontrolled
 
   const [pressing, setPressing] = useState(false)
-
-  useSliderSound(inputRef, min, max)
+  const lastScrub = useRef(0)
 
   const setRef = useCallback(
     (node: HTMLInputElement | null) => {
@@ -127,6 +105,11 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = parseFloat(e.target.value)
+    const now = performance.now()
+    if (now - lastScrub.current > 45) {
+      lastScrub.current = now
+      playCue('scrub')
+    }
     if (!isControlled) setValueUncontrolled(next)
     onValueChange?.(next)
   }
@@ -192,12 +175,12 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
       )}
     >
       {(label != null || showValue) && (
-        <div className="flex items-center justify-between mb-[8px]">
+        <div className="flex items-center justify-between gap-3 mb-[8px]">
           {label != null && (
             <label
               htmlFor={inputId}
               className={cn(
-                'text-[12px] leading-none font-medium text-[var(--sk-text-label)]',
+                'min-w-0 truncate text-[12px] leading-none font-medium text-[var(--sk-text-label)]',
                 disabled && 'opacity-60',
               )}
             >
@@ -205,7 +188,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
             </label>
           )}
           {showValue && (
-            <span className="text-[12px] leading-none text-[var(--sk-text-muted)] tabular-nums">
+            <span className="shrink-0 text-[12px] leading-none text-[var(--sk-text-muted)] tabular-nums">
               {value}
             </span>
           )}
@@ -247,15 +230,27 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(function Slider(
           <div className="relative mt-[4px]" style={{ height: 16 }}>
             {marks.map((m) => {
               const mPct = ((m.value - min) / (max - min || 1)) * 100
+              const atStart = mPct <= 6
+              const atEnd = mPct >= 94
               return (
                 <div
                   key={m.value}
-                  className="absolute flex flex-col items-center gap-[2px]"
-                  style={{ left: `${mPct}%`, transform: 'translateX(-50%)' }}
+                  className={cn(
+                    'absolute flex flex-col gap-[2px]',
+                    atStart ? 'items-start' : atEnd ? 'items-end' : 'items-center',
+                  )}
+                  style={{
+                    left: `${mPct}%`,
+                    transform: atStart
+                      ? 'translateX(0)'
+                      : atEnd
+                        ? 'translateX(-100%)'
+                        : 'translateX(-50%)',
+                  }}
                 >
                   <div className="w-[1px] h-[4px] bg-[var(--sk-border-strong)] rounded-full" />
                   {m.label && (
-                    <span className="text-[10px] leading-none text-[var(--sk-text-muted)]">
+                    <span className="text-[10px] leading-none whitespace-nowrap text-[var(--sk-text-muted)]">
                       {m.label}
                     </span>
                   )}

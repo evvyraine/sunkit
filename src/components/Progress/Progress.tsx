@@ -1,6 +1,7 @@
 import { useContext, type CSSProperties, type ReactNode } from 'react'
 import { cn } from '../../lib/utils'
 import { resolveAccent } from '../../lib/accent'
+import { TONE_BORDER, TONE_FILL } from '../../tokens/tones'
 import { ThemeContext } from '../Theme/ThemeProvider'
 
 export type ProgressTone =
@@ -27,28 +28,6 @@ export interface ProgressProps {
 }
 
 const TRACK_H: Record<ProgressSize, number> = { sm: 4, default: 8, lg: 12 }
-
-const TONE_FILL: Record<ProgressTone, string> = {
-  rose: '#F9C5D1',
-  peach: '#FDDBB4',
-  lemon: '#FFF1A8',
-  mint: '#B8F0D8',
-  sky: '#B8DFFE',
-  lavender: '#D4C5F9',
-  lilac: '#F0C8F0',
-  neutral: '#E8E4DC',
-}
-
-const TONE_BORDER: Record<ProgressTone, string> = {
-  rose: '#c2607a',
-  peach: '#b87a3a',
-  lemon: '#8a7820',
-  mint: '#2a7a58',
-  sky: '#2a68a0',
-  lavender: '#5a3eaa',
-  lilac: '#8a3a8a',
-  neutral: '#5a5550',
-}
 
 export function Progress({
   value,
@@ -109,14 +88,14 @@ export function Progress({
   return (
     <div className={cn('w-full font-[system-ui,_-apple-system,_sans-serif]', className)}>
       {(label != null || (showValue && !isIndeterminate)) && (
-        <div className="flex items-center justify-between mb-[6px]">
+        <div className="flex items-center justify-between gap-3 mb-[6px]">
           {label != null && (
-            <span className="text-[12px] leading-none font-medium text-[var(--sk-text-label)]">
+            <span className="min-w-0 truncate text-[12px] leading-none font-medium text-[var(--sk-text-label)]">
               {label}
             </span>
           )}
           {showValue && !isIndeterminate && (
-            <span className="text-[12px] leading-none text-[var(--sk-text-muted)] tabular-nums">
+            <span className="shrink-0 text-[12px] leading-none text-[var(--sk-text-muted)] tabular-nums">
               {clamped}%
             </span>
           )}

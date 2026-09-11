@@ -104,7 +104,7 @@ export const AllTones: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
       {COLORS.map((c) => (
-        <Checkbox key={c.id} {...args} tone={c.id as any} defaultChecked label={c.label} />
+        <Checkbox key={c.id} {...args} tone={c.id} defaultChecked label={c.label} />
       ))}
     </div>
   ),

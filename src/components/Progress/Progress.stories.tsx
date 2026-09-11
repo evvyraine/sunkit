@@ -7,6 +7,7 @@ const meta: Meta<typeof Progress> = {
   title: 'Atoms/Progress',
   component: Progress,
   tags: ['autodocs'],
+  parameters: { layout: 'padded' },
   argTypes: {
     tone: { control: 'select', options: COLORS.map((c) => c.id) },
     size: { control: 'select', options: ['sm', 'default', 'lg'] },

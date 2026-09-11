@@ -2,7 +2,7 @@ import { useRef, useCallback, useContext } from 'react'
 import type { ButtonHTMLAttributes, ReactNode, CSSProperties, Ref } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../lib/utils'
-import { useButtonSound } from '../../hooks/useButtonSound'
+import { playCue } from '../../sound'
 import type { ButtonColor } from '../../tokens/colors'
 import { hexToAccentPair, isColorLight } from '../../lib/accent'
 import { ThemeContext } from '../Theme/ThemeProvider'
@@ -303,10 +303,14 @@ export function Button({
   style,
   onMouseEnter,
   onMouseLeave,
+  onPointerDown,
+  onPointerUp,
+  onKeyDown,
+  onKeyUp,
   ...rest
 }: ButtonProps) {
   const innerRef = useRef<HTMLButtonElement>(null)
-  const { accentColor: ctxAccent } = useContext(ThemeContext)
+  const { accentColor: ctxAccent, dark } = useContext(ThemeContext)
 
   const setRef = useCallback(
     (node: HTMLButtonElement | null) => {
@@ -319,8 +323,6 @@ export function Button({
     },
     [externalRef],
   )
-
-  useButtonSound(innerRef)
 
   const isIconOnly = size === 'icon-only' || icon === 'only'
   const resolvedAccent = accentColorProp ?? ctxAccent
@@ -337,13 +339,13 @@ export function Button({
       }
     } else if (variant === 'outline') {
       accentStyle = {
-        color: border,
-        borderColor: `${border}55`,
+        color: dark ? fill : border,
+        borderColor: dark ? `${fill}80` : `${border}55`,
       }
     } else {
       // ghost
       accentStyle = {
-        color: border,
+        color: dark ? fill : border,
       }
     }
   }
@@ -371,6 +373,22 @@ export function Button({
       onMouseLeave={(e) => {
         if (hoverBg) e.currentTarget.style.backgroundColor = 'transparent'
         onMouseLeave?.(e)
+      }}
+      onPointerDown={(e) => {
+        playCue('press')
+        onPointerDown?.(e)
+      }}
+      onPointerUp={(e) => {
+        playCue('release')
+        onPointerUp?.(e)
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') playCue('press')
+        onKeyDown?.(e)
+      }}
+      onKeyUp={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') playCue('release')
+        onKeyUp?.(e)
       }}
       {...rest}
     >
