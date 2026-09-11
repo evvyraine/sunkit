@@ -195,6 +195,25 @@ headless Chrome. With Storybook running on port 6006:
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" pnpm screenshots
 ```
 
+### Releasing
+
+Versions and changelogs are managed with
+[Changesets](https://github.com/changesets/changesets). Add a changeset for
+your change and commit it alongside the code:
+
+```bash
+pnpm changeset          # choose patch / minor / major and describe the change
+```
+
+On every push to `main`, the **Release** workflow opens (or updates) a
+"Version Packages" PR. Merging that PR publishes to npm (with provenance) and
+creates a git tag and GitHub Release. While the project is in prerelease mode,
+versions go out under the `alpha` dist-tag:
+
+```bash
+pnpm add sunkit-ui@alpha
+```
+
 ## License
 
 [MIT](./LICENSE)
